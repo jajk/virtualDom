@@ -1,0 +1,37 @@
+<!doctype html>
+<html>
+    <head>
+        <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+        <meta http-equiv="cache-control" content="no-cache" />
+        <title>virtualDom test</title>
+    </head>
+    <body>
+        <button id="refresh">refresh element</button>
+        <div id="root"></div>
+        <script src="./virtualDom.js"></script>
+        <script>
+            var elem = Element({
+                tagName: 'ul',
+                props: {'class': 'list'},
+                children: [
+                    Element({tagName: 'li', children: ['item1']}),
+                    Element({tagName: 'li', children: ['item2']})
+                ]
+            });
+            var newElem =  Element({
+                tagName: 'ul',
+                props: {'class': 'list'},
+                children: [
+                    Element({tagName: 'li', children: ['item1']}),
+                    Element({tagName: 'li', children: ['item3']})
+                ]
+            });
+            var $root = document.querySelector('#root');
+            var $refresh = document.querySelector('#refresh');
+            updateElement($root, elem);
+            $refresh.addEventListener('click', () => {
+                updateElement($root, newElem, elem);
+            });
+        </script>
+    </body>
+</html>
